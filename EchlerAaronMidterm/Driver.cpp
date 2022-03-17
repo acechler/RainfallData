@@ -105,9 +105,13 @@
 
 #include "InputChecker.h"
 
-void displayCLI() {
 
-	std::cout << " Enter your choice\n"
+/// <summary>
+///  Displays the main menu for the user.
+/// </summary>
+void displayMainMenuCLI() {
+
+	std::cout << "Enter your choice\n"
 		<< "A -- Add a month of statistics\n"
 		<< "E -- Edit a month of statistics\n"
 		<< "P -- Print report\n"
@@ -116,11 +120,71 @@ void displayCLI() {
 }
 
 
+/// <summary>
+///		This is the Add Month menu and handles user input.
+///	 This adds month data and rainfall data to the list.	
+/// 
+/// </summary>
+/// <param name="input"> holds the input of the user. </param>
+/// <param name="inputChecker"> Utility to check if the users input is valid. </param>
+void displayAddMonthCLI(std::string& input, InputChecker& inputChecker) {
+	bool inputFlag = true;
+	while (inputFlag) {
+		std::cout << "Enter Month : ";
+		std::getline(std::cin, input);
+		inputFlag = inputChecker.check(input, true, false);
+	}
 
+	inputFlag = true;
+	while (inputFlag) {
+		std::cout << "Enter Rainfall(in Inches) : ";
+		std::getline(std::cin, input);
+		inputFlag = inputChecker.check(input, false, true);
+	}
+}
+
+
+/// <summary>
+///		This is the Edit Month menu and it handles user input,
+///	 allows a user to edit an existing month. 
+/// 
+/// </summary>
+/// <param name="input"> holds the input of the user. </param>
+/// <param name="inputChecker"> Utility to check if the users input is valid. </param>
+void displayEditMenuCLI(std::string& input, InputChecker& inputChecker) {
+	bool inputFlag = true;
+	while (inputFlag) {
+		std::cout << "Enter Month : ";
+		std::getline(std::cin, input);
+		inputFlag = inputChecker.check(input, true, false);
+		//ERROR: Invalid Month Check if month exists in the list
+	}
+
+	inputFlag = true;
+	while (inputFlag) {
+		std::cout << "Enter Rainfall(in Inches) : ";
+		std::getline(std::cin, input);
+		inputFlag = inputChecker.check(input, false, true);
+	}	
+}
+
+/// <summary>
+///		Displays rainfall data.
+/// </summary>
+void displayRainfallReportCLI() {
+	std::cout << "Total Rainfall: 66 inches \n";
+	
+	std::cout << "Average Rainfall : 33 inches \n";
+
+	std::cout << "Most Rainfall : Jan had 42 inches \n";
+
+	std::cout << "Least Rainfall : Feb had 24 inches \n";
+}
 
 int main() {
 
-	bool prog = true;
+	bool program = true; 
+	bool mainMenu = true;
 	bool addMonth = false;
 	bool editMonth = false;
 	bool printReport = false;
@@ -129,18 +193,45 @@ int main() {
 
 	InputChecker inputChecker;
 
-	while (inputFlag) {
-		displayCLI();
-		std::getline(std::cin, input);
-		inputFlag = inputChecker.check(input, true, false);
-	}
-	// Traverse Menu depending on results of the users input.
-	if		(input == "a" || input == "A") { std::cout << "Add a month of statistics\n"; }
-	else if (input == "e" || input == "E") { std::cout << "Edit a month of statistics\n"; }
-	else if (input == "p" || input == "P") { std::cout << "Print report\n"; }
-	else if (input == "q" || input == "Q") { std::cout << "Quit\n"; }
-	else{ std::cout << "Error invalid input.\n"; }
+	while (program) {
 
+		while (mainMenu) {
+
+			// Check if the user input is valid
+			bool inputFlag = true;
+			while (inputFlag) {
+				displayMainMenuCLI();
+				std::getline(std::cin, input);
+				inputFlag = inputChecker.check(input, true, false);
+			}
+
+			// Traverse Menu depending on results of the users input.
+			if (input == "a" || input == "A") { addMonth    = true;     mainMenu = false; }  ///< User selects add month menu.
+			if (input == "e" || input == "E") { editMonth   = true;     mainMenu = false; }  ///< User selects edit month menu.
+			if (input == "p" || input == "P") { printReport = true;     mainMenu = false; }  ///< User selects print report menu.
+			if (input == "q" || input == "Q") { program     = false;    mainMenu = false; }  ///< User selects Quit.
+			
+		}
+
+		while (addMonth) {
+			displayAddMonthCLI(input, inputChecker);
+			addMonth = false;
+			mainMenu = true;
+			
+		}
+
+		while (editMonth) {
+			std::cout << "Edit Month\n";
+			editMonth = false;
+			mainMenu = true;
+			
+		}
+		while (printReport) {
+			std::cout << "Print Report\n";
+			printReport = false;
+			mainMenu = true;
+		}
+	}
 	std::cin.ignore();
 	return 0;
 }
