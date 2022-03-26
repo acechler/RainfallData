@@ -1,4 +1,16 @@
-#pragma once
+// EchlerAaronMidterm : 
+// 
+// Name: Aaron Echler
+// Course Section (CIS 2207 N01)
+// Date: 3/14/22
+// 
+//      Description: Utility class that checks the input for digit or alphabetical characters. This is used to prevent crashes when a bad input is provided.
+//  
+
+
+
+#ifndef _INPUT_CHECKER_H
+#define _INPUT_CHECKER_H
 #include <iostream>
 #include <string>
 class InputChecker {
@@ -14,3 +26,4 @@ public:
 	void demo();
 
 };
+#endif

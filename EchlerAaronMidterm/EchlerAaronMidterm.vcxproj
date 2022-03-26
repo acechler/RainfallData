@@ -21,13 +21,18 @@
   <ItemGroup>
     <ClCompile Include="Driver.cpp" />
     <ClCompile Include="InputChecker.cpp" />
-    <ClCompile Include="List.cpp" />
+    <ClCompile Include="PrecondViolatedExcept.cpp" />
     <ClCompile Include="Rainfall.cpp" />
+    <ClCompile Include="RainfallData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="InputChecker.h" />
-    <ClInclude Include="List.h" />
+    <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="ListInterface.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="PrecondViolatedExcept.h" />
     <ClInclude Include="Rainfall.h" />
+    <ClInclude Include="RainfallData.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
